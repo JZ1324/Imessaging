@@ -170,17 +170,46 @@
       </div>
       <div class="hero-card">
         <div class="screen">
-          <div class="screen-header">
+          <div class="screen-top">
+            <div class="window-controls">
+              <span class="window-dot close"></span>
+              <span class="window-dot minimize"></span>
+              <span class="window-dot zoom"></span>
+            </div>
+            <div class="screen-title">iMessages Stats</div>
+            <div class="screen-status">Synced</div>
+          </div>
+          <div class="screen-tabs">
             <button class="pill active" data-panel="overview" type="button">Overview</button>
             <button class="pill" data-panel="chats" type="button">Chats</button>
             <button class="pill" data-panel="filters" type="button">Filters</button>
           </div>
           <div class="screen-body">
             <div class="screen-panel active" data-panel="overview">
-              <div class="stat">
-                <span class="stat-label">Reply speed</span>
-                <span class="stat-value">1.9 hrs</span>
-                <span class="stat-sub">Last 30 days</span>
+              <div class="overview-grid">
+                <div class="stat">
+                  <span class="stat-label">Reply speed</span>
+                  <span class="stat-value">1.9 hrs</span>
+                  <span class="stat-sub">Last 30 days</span>
+                </div>
+                <div class="mini-kpis">
+                  <div class="mini-kpi">
+                    <span class="mini-kpi-label">Sent / Received</span>
+                    <span class="mini-kpi-value">52% / 48%</span>
+                  </div>
+                  <div class="mini-kpi">
+                    <span class="mini-kpi-label">Longest streak</span>
+                    <span class="mini-kpi-value">18 days</span>
+                  </div>
+                  <div class="mini-kpi">
+                    <span class="mini-kpi-label">Energy score</span>
+                    <span class="mini-kpi-value">86</span>
+                  </div>
+                  <div class="mini-kpi">
+                    <span class="mini-kpi-label">Left on read</span>
+                    <span class="mini-kpi-value">3</span>
+                  </div>
+                </div>
               </div>
               <div class="chart">
                 <div class="bar" style="height: 62%"></div>
@@ -198,8 +227,8 @@
                   <span class="tile-value">Friendly</span>
                 </div>
                 <div class="tile">
-                  <span class="tile-title">Left on read</span>
-                  <span class="tile-value">3</span>
+                  <span class="tile-title">First convo</span>
+                  <span class="tile-value">Aug 2019</span>
                 </div>
               </div>
             </div>
