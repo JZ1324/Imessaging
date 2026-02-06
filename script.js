@@ -51,6 +51,62 @@ window.addEventListener('scroll', () => {
   }
 });
 
+// Mouse move effect for cards
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = (y - centerY) / 20;
+    const rotateY = (centerX - x) / 20;
+    
+    card.style.transform = `translateY(-8px) scale(1.02) perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+  
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+
+// Floating animation for logo
+const logo = document.querySelector('.logo');
+if (logo) {
+  let floatDirection = 1;
+  setInterval(() => {
+    const currentTransform = logo.style.transform;
+    const currentY = parseFloat(currentTransform.match(/translateY\((-?\d+\.?\d*)px\)/)?.[1] || 0);
+    
+    if (currentY >= 3) floatDirection = -1;
+    if (currentY <= -3) floatDirection = 1;
+    
+    logo.style.transform = `translateY(${currentY + (0.5 * floatDirection)}px)`;
+  }, 50);
+}
+
+// Add ripple effect to buttons
+document.querySelectorAll('.primary, .secondary, .nav-cta').forEach(button => {
+  button.addEventListener('click', function(e) {
+    const ripple = document.createElement('span');
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = e.clientX - rect.left - size / 2;
+    const y = e.clientY - rect.top - size / 2;
+    
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = x + 'px';
+    ripple.style.top = y + 'px';
+    ripple.classList.add('ripple');
+    
+    this.appendChild(ripple);
+    
+    setTimeout(() => ripple.remove(), 600);
+  });
+});
+
 // Smooth scroll for nav links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
