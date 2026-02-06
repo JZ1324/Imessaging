@@ -1073,16 +1073,6 @@ body {
   transform: scaleX(1);
 }
 
-.card:hover .card-icon {
-  transform: scale(1.15) rotate(8deg);
-  filter: drop-shadow(0 6px 16px rgba(92, 214, 255, 0.4));
-  animation: floatIcon 2s ease-in-out infinite;
-}
-
-@keyframes floatIcon {
-  0%, 100% { transform: scale(1.15) rotate(8deg) translateY(0); }
-  50% { transform: scale(1.15) rotate(8deg) translateY(-4px); }
-}
 
 /* Analyzer Styles */
 .analyzer-wrapper {
