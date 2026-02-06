@@ -22,6 +22,12 @@
   transition: none !important;
 }
 
+*:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
 body {
   font-family: "Space Grotesk", system-ui, sans-serif;
   background: radial-gradient(circle at top right, #182235, var(--bg));

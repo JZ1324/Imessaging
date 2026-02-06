@@ -2,6 +2,13 @@
 let db = null;
 let charts = {};
 
+if (typeof Chart !== "undefined") {
+  Chart.defaults.animation = false;
+  if (Chart.defaults.transitions && Chart.defaults.transitions.active) {
+    Chart.defaults.transitions.active.animation.duration = 0;
+  }
+}
+
 // Navigation
 document.getElementById('tryAnalyzer')?.addEventListener('click', () => {
   document.querySelector('.hero').style.display = 'none';
