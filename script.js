@@ -49,6 +49,28 @@ document.querySelectorAll('.screen-tabs .pill').forEach(button => {
   });
 });
 
+// Subtle scroll reveal
+const revealTargets = document.querySelectorAll(
+  'section, .hero, .feature-grid .card, .privacy-card, .cta-card, .pricing-card'
+);
+
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.2, rootMargin: '0px 0px -40px 0px' }
+);
+
+revealTargets.forEach((el) => {
+  el.classList.add('scroll-reveal');
+  revealObserver.observe(el);
+});
+
 // File upload handler
 document.getElementById('dbFile')?.addEventListener('change', async (e) => {
   const file = e.target.files[0];
