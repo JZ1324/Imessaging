@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+    xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"
+    xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>iMessages Stats Updates</title>
+    <link>https://jz1324.github.io/Imessaging/</link>
+    <description>Updates for iMessages Stats</description>
+    <language>en</language>
+    <item>
+      <title>Version 1.0</title>
+      <sparkle:version>1.0</sparkle:version>
+      <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+      <pubDate>Fri, 06 Feb 2026 12:00:00 +0000</pubDate>
+      <enclosure
+        url="https://jz1324.github.io/Imessaging/updates/ImessageStatsMacApp-1.0.zip"
+        length="1966103"
+        type="application/octet-stream"
+        sparkle:edSignature="YjC4VbWlPBWvhf4k6Zg9SGJPEbijNHtk4Oqml2VMQtngKRGk4x5m3xRvfWgPSQZ19tK6xVRMML+ISghgj6DLBw=="
+        sparkle:os="macos" />
+    </item>
+  </channel>
+</rss>
