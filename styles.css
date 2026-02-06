@@ -1411,3 +1411,42 @@ body {
   }
 }
 
+/* Minimal hover effects (color only, no motion) */
+*:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+a:hover {
+  color: var(--accent) !important;
+}
+
+.nav-cta:hover,
+.secondary:hover,
+.back-btn:hover {
+  background: transparent !important;
+  border-color: var(--card-border) !important;
+  color: var(--text) !important;
+}
+
+.primary:hover {
+  background: linear-gradient(130deg, var(--accent), var(--accent-2)) !important;
+  color: #0b121a !important;
+}
+
+.card:hover,
+.stat-card:hover,
+.privacy-card:hover,
+.pricing-card:hover,
+.contact-item:hover,
+.emoji-item:hover,
+.tile:hover,
+.hero-meta div:hover,
+.pill:hover,
+.upload-label:hover,
+.hero-card:hover .screen {
+  background: var(--card) !important;
+  border-color: var(--card-border) !important;
+}
+
