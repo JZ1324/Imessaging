@@ -38,11 +38,11 @@ document.querySelectorAll('.stat-tab').forEach(tab => {
 });
 
 // Hero preview tabs
-document.querySelectorAll('.screen-header .pill').forEach(button => {
+document.querySelectorAll('.screen-tabs .pill').forEach(button => {
   button.addEventListener('click', () => {
     const panel = button.dataset.panel;
     if (!panel) return;
-    document.querySelectorAll('.screen-header .pill').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.screen-tabs .pill').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.screen-panel').forEach(p => p.classList.remove('active'));
     button.classList.add('active');
     document.querySelector(`.screen-panel[data-panel="${panel}"]`)?.classList.add('active');
