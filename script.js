@@ -1,4 +1,4 @@
-// Intersection Observer for animations
+// Intersection Observer for animations with staggered delays
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -7,12 +7,62 @@ const observer = new IntersectionObserver(
       }
     });
   },
-  { threshold: 0.15 }
+  { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
 );
 
-document.querySelectorAll(".card, .privacy-card, .cta-card, .pricing-card, .hero-card").forEach((el) => {
+// Add animations to different elements with different classes
+document.querySelectorAll(".card").forEach((el, index) => {
   el.classList.add("fade-in");
+  el.style.transitionDelay = `${index * 0.08}s`;
   observer.observe(el);
+});
+
+document.querySelectorAll(".privacy-card, .cta-card, .pricing-card").forEach((el) => {
+  el.classList.add("scale-in");
+  observer.observe(el);
+});
+
+document.querySelectorAll(".hero-card").forEach((el) => {
+  el.classList.add("slide-in-right");
+  observer.observe(el);
+});
+
+document.querySelectorAll(".hero-copy").forEach((el) => {
+  el.classList.add("slide-in-left");
+  observer.observe(el);
+});
+
+// Parallax effect on scroll
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      const scrolled = window.pageYOffset;
+      const parallaxElements = document.querySelectorAll('.hero-card, .glow');
+      
+      parallaxElements.forEach((el) => {
+        const speed = 0.3;
+        el.style.transform = `translateY(${scrolled * speed}px)`;
+      });
+      
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  });
 });
 
 // Web Analyzer

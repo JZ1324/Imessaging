@@ -38,10 +38,8 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 28px 7vw;
-  position: sticky;
-  top: 0;
-  background: linear-gradient(180deg, rgba(12,16,24,0.95), rgba(12,16,24,0));
-  backdrop-filter: blur(10px);
+  position: relative;
+  background: transparent;
   z-index: 10;
 }
 
@@ -260,6 +258,13 @@ body {
   font-size: clamp(2rem, 2.4vw, 2.6rem);
 }
 
+.section-description {
+  color: var(--muted);
+  max-width: 600px;
+  line-height: 1.6;
+  margin-top: 12px;
+}
+
 .grid {
   display: grid;
   gap: 16px;
@@ -272,6 +277,13 @@ body {
   border: 1px solid var(--card-border);
   background: var(--card);
   box-shadow: 0 20px 40px var(--shadow);
+}
+
+.card-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  display: block;
+  filter: drop-shadow(0 4px 8px rgba(92, 214, 255, 0.2));
 }
 
 .card h3 {
@@ -393,13 +405,46 @@ body {
 }
 .fade-in {
   opacity: 0;
-  transform: translateY(16px) scale(0.98);
-  transition: all 0.7s ease;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .reveal {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
+}
+
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scale-in {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.parallax {
+  transition: transform 0.3s ease-out;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(92, 214, 255, 0.3);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 20px rgba(92, 214, 255, 0.1);
+}
+
+.card:hover .card-icon {
+  transform: scale(1.1) rotate(5deg);
+  transition: transform 0.3s ease;
 }
 
 /* Analyzer Styles */
