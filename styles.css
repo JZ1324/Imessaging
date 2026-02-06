@@ -1450,25 +1450,11 @@ body {
   background: rgba(12, 16, 24, 0.4);
   border: 1px solid var(--card-border);
   border-radius: 12px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.emoji-item:hover {
-  background: rgba(92, 214, 255, 0.08);
-  border-color: rgba(92, 214, 255, 0.3);
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.emoji-item:hover .emoji {
-  transform: scale(1.2) rotate(10deg);
-  filter: drop-shadow(0 4px 8px rgba(92, 214, 255, 0.3));
+  cursor: default;
 }
 
 .emoji {
   font-size: 24px;
-  transition: all 0.3s ease;
 }
 
 .emoji-count {
