@@ -781,6 +781,9 @@ body {
 
 .reveal {
   opacity: 1;
+}
+
+.fade-in.reveal {
   transform: translateY(0);
 }
 
@@ -790,16 +793,28 @@ body {
   transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.slide-in-left.reveal {
+  transform: translateX(0);
+}
+
 .slide-in-right {
   opacity: 0;
   transform: translateX(60px);
   transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.slide-in-right.reveal {
+  transform: translateX(0);
+}
+
 .scale-in {
   opacity: 0;
   transform: scale(0.9);
   transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scale-in.reveal {
+  transform: scale(1);
 }
 
 .parallax {
