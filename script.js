@@ -9,6 +9,44 @@ if (typeof Chart !== "undefined") {
   }
 }
 
+// Custom smooth scrolling with max speed
+const MAX_SCROLL_STEP = 80;
+const SCROLL_EASE = 0.12;
+let scrollTarget = window.scrollY;
+let scrollAnimating = false;
+
+function clampScrollTarget(value) {
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  return Math.max(0, Math.min(maxScroll, value));
+}
+
+function animateScroll() {
+  const current = window.scrollY;
+  const delta = scrollTarget - current;
+  if (Math.abs(delta) < 0.5) {
+    window.scrollTo(0, scrollTarget);
+    scrollAnimating = false;
+    return;
+  }
+  window.scrollTo(0, current + delta * SCROLL_EASE);
+  requestAnimationFrame(animateScroll);
+}
+
+window.addEventListener(
+  'wheel',
+  (event) => {
+    if (event.ctrlKey) return;
+    event.preventDefault();
+    const capped = Math.max(-MAX_SCROLL_STEP, Math.min(MAX_SCROLL_STEP, event.deltaY));
+    scrollTarget = clampScrollTarget(scrollTarget + capped);
+    if (!scrollAnimating) {
+      scrollAnimating = true;
+      requestAnimationFrame(animateScroll);
+    }
+  },
+  { passive: false }
+);
+
 // Navigation
 document.getElementById('tryAnalyzer')?.addEventListener('click', () => {
   document.querySelector('.hero').style.display = 'none';
