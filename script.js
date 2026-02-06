@@ -10,8 +10,9 @@ if (typeof Chart !== "undefined") {
 }
 
 // Custom smooth scrolling with max speed
-const MAX_SCROLL_STEP = 60;
-const SCROLL_EASE = 0.08;
+const MAX_SCROLL_STEP = 30;
+const SCROLL_EASE = 0.06;
+const SCROLL_SCALE = 0.35;
 const scrollContainer = document.querySelector('main');
 let scrollTarget = scrollContainer ? scrollContainer.scrollTop : window.scrollY;
 let scrollAnimating = false;
@@ -49,23 +50,24 @@ function animateScroll() {
   requestAnimationFrame(animateScroll);
 }
 
-(scrollContainer || window).addEventListener(
-  'wheel',
-  (event) => {
-    if (event.ctrlKey) return;
-    event.preventDefault();
-    const capped = Math.max(-MAX_SCROLL_STEP, Math.min(MAX_SCROLL_STEP, event.deltaY));
-    scrollTarget = clampScrollTarget(scrollTarget + capped);
-    if (!scrollAnimating) {
-      scrollAnimating = true;
-      requestAnimationFrame(animateScroll);
-    }
-  },
-  { passive: false }
-);
+const wheelHandler = (event) => {
+  if (event.ctrlKey) return;
+  event.preventDefault();
+  const scaled = event.deltaY * SCROLL_SCALE;
+  const capped = Math.max(-MAX_SCROLL_STEP, Math.min(MAX_SCROLL_STEP, scaled));
+  scrollTarget = clampScrollTarget(scrollTarget + capped);
+  if (!scrollAnimating) {
+    scrollAnimating = true;
+    requestAnimationFrame(animateScroll);
+  }
+};
+
+(scrollContainer || window).addEventListener('wheel', wheelHandler, { passive: false });
+window.addEventListener('wheel', wheelHandler, { passive: false });
 
 // Keep target in sync if user scrolls via keyboard or scrollbar
-(scrollContainer || window).addEventListener('scroll', () => {
+const scrollRoot = scrollContainer || window;
+scrollRoot.addEventListener('scroll', () => {
   if (!scrollAnimating) {
     scrollTarget = getScrollTop();
   }
