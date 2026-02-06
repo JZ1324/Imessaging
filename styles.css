@@ -12,10 +12,14 @@
   --shadow: rgba(0, 0, 0, 0.4);
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  animation: none !important;
+  transition: none !important;
 }
 
 body {
@@ -24,6 +28,10 @@ body {
   color: var(--text);
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: auto;
 }
 
 /* Hide scrollbar but keep functionality */
