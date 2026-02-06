@@ -10,9 +10,9 @@ if (typeof Chart !== "undefined") {
 }
 
 // Custom smooth scrolling with max speed
-const MAX_SCROLL_STEP = 120;
-const SCROLL_EASE = 0.12;
-const SCROLL_SCALE = 0.78;
+const MAX_SCROLL_STEP = 144;
+const SCROLL_EASE = 0.144;
+const SCROLL_SCALE = 0.936;
 const scrollContainer = document.querySelector('main');
 let scrollTarget = scrollContainer ? scrollContainer.scrollTop : window.scrollY;
 let scrollAnimating = false;
