@@ -77,6 +77,32 @@ window.addEventListener('resize', () => {
   scrollTarget = clampScrollTarget(scrollTarget);
 });
 
+function getTargetOffset(target) {
+  if (!scrollContainer) return target.getBoundingClientRect().top + window.scrollY;
+  const containerRect = scrollContainer.getBoundingClientRect();
+  const targetRect = target.getBoundingClientRect();
+  return scrollContainer.scrollTop + (targetRect.top - containerRect.top);
+}
+
+function smoothScrollTo(target) {
+  scrollTarget = clampScrollTarget(target);
+  if (!scrollAnimating) {
+    scrollAnimating = true;
+    requestAnimationFrame(animateScroll);
+  }
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', (event) => {
+    const href = anchor.getAttribute('href');
+    if (!href || href === '#') return;
+    const target = document.querySelector(href);
+    if (!target) return;
+    event.preventDefault();
+    smoothScrollTo(getTargetOffset(target));
+  });
+});
+
 // Navigation
 document.getElementById('tryAnalyzer')?.addEventListener('click', () => {
   document.querySelector('.hero').style.display = 'none';
