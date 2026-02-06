@@ -473,10 +473,62 @@ body {
 .screen-panel {
   display: none;
   gap: 18px;
+  min-height: 240px;
 }
 
 .screen-panel.active {
   display: grid;
+}
+
+.panel-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.panel-col {
+  display: grid;
+  gap: 12px;
+}
+
+.mini-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.mini-stat {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  background: rgba(12, 16, 24, 0.6);
+  display: grid;
+  gap: 4px;
+}
+
+.mini-stat-label {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.mini-stat-value {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.mini-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.mini-tag {
+  font-size: 10px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--card-border);
+  color: var(--muted);
+  background: rgba(12, 16, 24, 0.6);
 }
 
 .mini-list {
@@ -543,6 +595,7 @@ body {
 .screen-body {
   display: grid;
   gap: 18px;
+  min-height: 240px;
 }
 
 .stat {
@@ -853,6 +906,9 @@ body {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+  }
+  .panel-grid {
+    grid-template-columns: 1fr;
   }
 }
 .fade-in {
