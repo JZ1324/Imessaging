@@ -171,34 +171,70 @@
       <div class="hero-card">
         <div class="screen">
           <div class="screen-header">
-            <div class="pill">Overview</div>
-            <div class="pill muted">Chats</div>
-            <div class="pill muted">Filters</div>
+            <button class="pill active" data-panel="overview" type="button">Overview</button>
+            <button class="pill" data-panel="chats" type="button">Chats</button>
+            <button class="pill" data-panel="filters" type="button">Filters</button>
           </div>
           <div class="screen-body">
-            <div class="stat">
-              <span class="stat-label">Reply speed</span>
-              <span class="stat-value">1.9 hrs</span>
-              <span class="stat-sub">Last 30 days</span>
-            </div>
-            <div class="chart">
-              <div class="bar" style="height: 62%"></div>
-              <div class="bar" style="height: 48%"></div>
-              <div class="bar" style="height: 82%"></div>
-              <div class="bar" style="height: 36%"></div>
-            </div>
-            <div class="tile-grid">
-              <div class="tile">
-                <span class="tile-title">Top chat</span>
-                <span class="tile-value">Alex R.</span>
+            <div class="screen-panel active" data-panel="overview">
+              <div class="stat">
+                <span class="stat-label">Reply speed</span>
+                <span class="stat-value">1.9 hrs</span>
+                <span class="stat-sub">Last 30 days</span>
               </div>
-              <div class="tile">
-                <span class="tile-title">Mood</span>
-                <span class="tile-value">Friendly</span>
+              <div class="chart">
+                <div class="bar" style="height: 62%"></div>
+                <div class="bar" style="height: 48%"></div>
+                <div class="bar" style="height: 82%"></div>
+                <div class="bar" style="height: 36%"></div>
               </div>
-              <div class="tile">
-                <span class="tile-title">Left on read</span>
-                <span class="tile-value">3</span>
+              <div class="tile-grid">
+                <div class="tile">
+                  <span class="tile-title">Top chat</span>
+                  <span class="tile-value">Alex R.</span>
+                </div>
+                <div class="tile">
+                  <span class="tile-title">Mood</span>
+                  <span class="tile-value">Friendly</span>
+                </div>
+                <div class="tile">
+                  <span class="tile-title">Left on read</span>
+                  <span class="tile-value">3</span>
+                </div>
+              </div>
+            </div>
+            <div class="screen-panel" data-panel="chats">
+              <div class="mini-list">
+                <div class="mini-item">
+                  <span class="mini-title">Alex R.</span>
+                  <span class="mini-value">1,248 msgs</span>
+                </div>
+                <div class="mini-item">
+                  <span class="mini-title">Fam Group</span>
+                  <span class="mini-value">982 msgs</span>
+                </div>
+                <div class="mini-item">
+                  <span class="mini-title">Maya</span>
+                  <span class="mini-value">741 msgs</span>
+                </div>
+              </div>
+              <div class="mini-note">Top chats, response pace, and last active snapshot.</div>
+            </div>
+            <div class="screen-panel" data-panel="filters">
+              <div class="filter-group">
+                <span class="filter-label">Date range</span>
+                <div class="chip-row">
+                  <span class="chip active">Last 30 days</span>
+                  <span class="chip">Last 90 days</span>
+                  <span class="chip">All time</span>
+                </div>
+              </div>
+              <div class="filter-group">
+                <span class="filter-label">Chat type</span>
+                <div class="chip-row">
+                  <span class="chip active">Direct</span>
+                  <span class="chip">Groups</span>
+                </div>
               </div>
             </div>
           </div>
