@@ -10,9 +10,9 @@ if (typeof Chart !== "undefined") {
 }
 
 // Custom smooth scrolling with max speed
-const MAX_SCROLL_STEP = 30;
-const SCROLL_EASE = 0.06;
-const SCROLL_SCALE = 0.35;
+const MAX_SCROLL_STEP = 45;
+const SCROLL_EASE = 0.1;
+const SCROLL_SCALE = 0.5;
 const scrollContainer = document.querySelector('main');
 let scrollTarget = scrollContainer ? scrollContainer.scrollTop : window.scrollY;
 let scrollAnimating = false;
@@ -55,7 +55,7 @@ const wheelHandler = (event) => {
   event.preventDefault();
   const scaled = event.deltaY * SCROLL_SCALE;
   const capped = Math.max(-MAX_SCROLL_STEP, Math.min(MAX_SCROLL_STEP, scaled));
-  scrollTarget = clampScrollTarget(scrollTarget + capped);
+  scrollTarget = clampScrollTarget(getScrollTop() + capped);
   if (!scrollAnimating) {
     scrollAnimating = true;
     requestAnimationFrame(animateScroll);
@@ -71,6 +71,10 @@ scrollRoot.addEventListener('scroll', () => {
   if (!scrollAnimating) {
     scrollTarget = getScrollTop();
   }
+});
+
+window.addEventListener('resize', () => {
+  scrollTarget = clampScrollTarget(scrollTarget);
 });
 
 // Navigation
