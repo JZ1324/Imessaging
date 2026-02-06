@@ -10,29 +10,46 @@ if (typeof Chart !== "undefined") {
 }
 
 // Custom smooth scrolling with max speed
-const MAX_SCROLL_STEP = 80;
-const SCROLL_EASE = 0.12;
-let scrollTarget = window.scrollY;
+const MAX_SCROLL_STEP = 60;
+const SCROLL_EASE = 0.08;
+const scrollContainer = document.querySelector('main');
+let scrollTarget = scrollContainer ? scrollContainer.scrollTop : window.scrollY;
 let scrollAnimating = false;
 
 function clampScrollTarget(value) {
-  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  if (!scrollContainer) {
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    return Math.max(0, Math.min(maxScroll, value));
+  }
+  const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
   return Math.max(0, Math.min(maxScroll, value));
 }
 
+function getScrollTop() {
+  return scrollContainer ? scrollContainer.scrollTop : window.scrollY;
+}
+
+function setScrollTop(value) {
+  if (scrollContainer) {
+    scrollContainer.scrollTop = value;
+  } else {
+    window.scrollTo(0, value);
+  }
+}
+
 function animateScroll() {
-  const current = window.scrollY;
+  const current = getScrollTop();
   const delta = scrollTarget - current;
   if (Math.abs(delta) < 0.5) {
-    window.scrollTo(0, scrollTarget);
+    setScrollTop(scrollTarget);
     scrollAnimating = false;
     return;
   }
-  window.scrollTo(0, current + delta * SCROLL_EASE);
+  setScrollTop(current + delta * SCROLL_EASE);
   requestAnimationFrame(animateScroll);
 }
 
-window.addEventListener(
+(scrollContainer || window).addEventListener(
   'wheel',
   (event) => {
     if (event.ctrlKey) return;
@@ -46,6 +63,13 @@ window.addEventListener(
   },
   { passive: false }
 );
+
+// Keep target in sync if user scrolls via keyboard or scrollbar
+(scrollContainer || window).addEventListener('scroll', () => {
+  if (!scrollAnimating) {
+    scrollTarget = getScrollTop();
+  }
+});
 
 // Navigation
 document.getElementById('tryAnalyzer')?.addEventListener('click', () => {
@@ -102,7 +126,11 @@ const revealObserver = new IntersectionObserver(
       }
     });
   },
-  { threshold: 0.2, rootMargin: '0px 0px -40px 0px' }
+  {
+    threshold: 0.2,
+    rootMargin: '0px 0px -40px 0px',
+    root: scrollContainer || null
+  }
 );
 
 revealTargets.forEach((el) => {

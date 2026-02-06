@@ -45,10 +45,18 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   overscroll-behavior: none;
+  overflow: hidden;
 }
 
 html {
   overscroll-behavior: none;
+}
+
+main {
+  height: 100vh;
+  overflow-y: auto;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: auto;
 }
 
 html,
@@ -59,6 +67,12 @@ body {
 
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+main::-webkit-scrollbar {
   width: 0;
   height: 0;
   display: none;
