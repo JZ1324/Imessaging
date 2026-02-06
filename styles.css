@@ -815,12 +815,14 @@ body {
 
 .feature-kpis {
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 
 .feature-kpi {
-  display: grid;
-  gap: 4px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
   padding: 10px 12px;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -830,11 +832,14 @@ body {
 .feature-kpi-label {
   font-size: 11px;
   color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
 }
 
 .feature-kpi-value {
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 600;
+  color: var(--text);
 }
 
 .feature-rail-divider {
