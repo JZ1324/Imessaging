@@ -447,6 +447,7 @@ body {
   padding: 18px;
   box-shadow: 0 30px 60px var(--shadow);
   transition: all 0.5s ease;
+  min-height: 420px;
 }
 
 .hero-card:hover .screen {
@@ -536,7 +537,7 @@ body {
 .screen-panel {
   display: none;
   gap: 18px;
-  min-height: 240px;
+  min-height: 300px;
 }
 
 .screen-panel.active {
@@ -658,7 +659,7 @@ body {
 .screen-body {
   display: grid;
   gap: 18px;
-  min-height: 240px;
+  min-height: 300px;
 }
 
 .overview-grid {
