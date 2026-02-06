@@ -805,6 +805,13 @@ body {
   background: linear-gradient(180deg, rgba(14, 23, 38, 0.9), rgba(12, 16, 24, 0.9));
 }
 
+.feature-rail-block {
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(12, 16, 24, 0.75);
+}
+
 .feature-rail-title {
   font-size: 12px;
   text-transform: uppercase;
@@ -851,15 +858,22 @@ body {
 .feature-rail-list {
   list-style: none;
   display: grid;
-  gap: 10px;
+  gap: 8px;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .feature-rail-list li::before {
-  content: "•";
-  color: var(--accent-2);
-  margin-right: 8px;
+  content: none;
+}
+
+.feature-rail-list li {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(92, 214, 255, 0.15);
+  color: var(--text);
+  background: rgba(92, 214, 255, 0.08);
+  width: fit-content;
 }
 
 .feature-cards .card {
