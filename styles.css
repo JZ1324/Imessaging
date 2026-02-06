@@ -786,6 +786,95 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
+.feature-layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.feature-rail {
+  position: sticky;
+  top: 24px;
+}
+
+.feature-rail-card {
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid var(--card-border);
+  background: linear-gradient(180deg, rgba(14, 23, 38, 0.9), rgba(12, 16, 24, 0.9));
+}
+
+.feature-rail-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.feature-kpis {
+  display: grid;
+  gap: 12px;
+}
+
+.feature-kpi {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(12, 16, 24, 0.7);
+}
+
+.feature-kpi-label {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.feature-kpi-value {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.feature-rail-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  margin: 16px 0;
+}
+
+.feature-rail-list {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.feature-rail-list li::before {
+  content: "•";
+  color: var(--accent-2);
+  margin-right: 8px;
+}
+
+.feature-cards .card {
+  padding: 20px 20px 22px;
+  background: linear-gradient(180deg, rgba(20, 26, 39, 0.88), rgba(12, 16, 24, 0.88));
+}
+
+.feature-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(92, 214, 255, 0.25);
+  color: var(--accent);
+  font-size: 10px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
 .card {
   padding: 20px;
   border-radius: 18px;
@@ -1012,6 +1101,12 @@ body {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+  }
+  .feature-layout {
+    grid-template-columns: 1fr;
+  }
+  .feature-rail {
+    position: static;
   }
   .panel-grid {
     grid-template-columns: 1fr;
