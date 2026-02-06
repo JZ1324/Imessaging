@@ -22,14 +22,21 @@ document.querySelectorAll(".privacy-card, .cta-card, .pricing-card").forEach((el
   observer.observe(el);
 });
 
+// Hero sections should animate in immediately on page load
 document.querySelectorAll(".hero-card").forEach((el) => {
   el.classList.add("slide-in-right");
-  observer.observe(el);
+  setTimeout(() => {
+    el.classList.add("reveal");
+  }, 200);
 });
 
+// Hero copy should be visible immediately and animate in
 document.querySelectorAll(".hero-copy").forEach((el) => {
   el.classList.add("slide-in-left");
-  observer.observe(el);
+  // Trigger animation immediately on page load
+  setTimeout(() => {
+    el.classList.add("reveal");
+  }, 100);
 });
 
 // Parallax effect on scroll
