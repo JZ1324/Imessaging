@@ -751,7 +751,7 @@ body {
   border-radius: 10px 10px 4px 4px;
   transform-origin: bottom;
   transform: scaleY(0.05);
-  transition: transform 0.8s ease;
+  transition: transform 1.4s ease;
 }
 
 .bar-animate.is-animated .bar {
@@ -1407,7 +1407,7 @@ body {
   background: linear-gradient(90deg, rgba(92, 214, 255, 0.7), rgba(76, 240, 180, 0.5));
   transform-origin: left;
   transform: scaleX(0.05);
-  transition: transform 0.8s ease;
+  transition: transform 1.4s ease;
 }
 
 .demo-rail-bars.is-animated span {

@@ -221,7 +221,7 @@ function animateCount(el) {
   const target = Number(el.dataset.count || 0);
   const decimals = Number(el.dataset.decimals || (String(el.dataset.count).includes('.') ? 1 : 0));
   const suffix = el.dataset.suffix || '';
-  const duration = 1000;
+  const duration = 1600;
   const start = performance.now();
 
   const step = (now) => {
