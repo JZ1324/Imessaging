@@ -1618,16 +1618,29 @@ body {
   transform: translateY(-50%);
   font-size: 18px;
   color: var(--accent);
+  transition: transform 0.2s ease;
 }
 
 .faq-item[open] summary::after {
   content: '−';
 }
 
-.faq-item p {
+.faq-answer {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.35s ease;
+  padding: 0 18px;
+}
+
+.faq-item.is-open .faq-answer {
+  opacity: 1;
+}
+
+.faq-answer p {
   color: var(--muted);
   line-height: 1.6;
-  padding: 0 18px 18px;
+  padding-bottom: 18px;
 }
 
 @media (max-width: 720px) {

@@ -173,6 +173,47 @@ revealTargets.forEach((el) => {
   revealObserver.observe(el);
 });
 
+const faqSection = document.getElementById('faq');
+const faqItems = Array.from(document.querySelectorAll('.faq-item'));
+
+function setFaqHeight(item) {
+  const answer = item.querySelector('.faq-answer');
+  if (!answer) return;
+  if (item.open) {
+    answer.style.maxHeight = `${answer.scrollHeight}px`;
+    item.classList.add('is-open');
+  } else {
+    answer.style.maxHeight = '0px';
+    item.classList.remove('is-open');
+  }
+}
+
+function closeFaqItems(except) {
+  faqItems.forEach((item) => {
+    if (item === except) return;
+    item.open = false;
+    setFaqHeight(item);
+  });
+}
+
+if (faqItems.length) {
+  faqItems.forEach((item) => {
+    setFaqHeight(item);
+    const summary = item.querySelector('summary');
+    summary?.addEventListener('click', (event) => {
+      event.preventDefault();
+      const willOpen = !item.open;
+      closeFaqItems(item);
+      item.open = willOpen;
+      setFaqHeight(item);
+    });
+  });
+
+  window.addEventListener('resize', () => {
+    faqItems.forEach((item) => setFaqHeight(item));
+  });
+}
+
 const barTargets = document.querySelectorAll('[data-animate="bars"]');
 const countTargets = document.querySelectorAll('[data-count]');
 
@@ -226,6 +267,23 @@ const animationObserver = new IntersectionObserver(
 
 barTargets.forEach((el) => animationObserver.observe(el));
 countTargets.forEach((el) => animationObserver.observe(el));
+
+if (faqSection) {
+  const faqObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          closeFaqItems();
+        }
+      });
+    },
+    {
+      threshold: 0.1,
+      root: scrollContainer || null
+    }
+  );
+  faqObserver.observe(faqSection);
+}
 
 // File upload handler
 document.getElementById('dbFile')?.addEventListener('change', async (e) => {
