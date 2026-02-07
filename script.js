@@ -3,9 +3,12 @@ let db = null;
 let charts = {};
 
 if (typeof Chart !== "undefined") {
-  Chart.defaults.animation = false;
+  Chart.defaults.animation = {
+    duration: 800,
+    easing: "easeOutQuart"
+  };
   if (Chart.defaults.transitions && Chart.defaults.transitions.active) {
-    Chart.defaults.transitions.active.animation.duration = 0;
+    Chart.defaults.transitions.active.animation.duration = 400;
   }
 }
 
@@ -169,6 +172,60 @@ revealTargets.forEach((el) => {
   el.classList.add('scroll-reveal');
   revealObserver.observe(el);
 });
+
+const barTargets = document.querySelectorAll('[data-animate="bars"]');
+const countTargets = document.querySelectorAll('[data-count]');
+
+function animateCount(el) {
+  if (el.dataset.animated === 'true') return;
+  const target = Number(el.dataset.count || 0);
+  const decimals = Number(el.dataset.decimals || (String(el.dataset.count).includes('.') ? 1 : 0));
+  const suffix = el.dataset.suffix || '';
+  const duration = 1000;
+  const start = performance.now();
+  el.dataset.animated = 'true';
+
+  const step = (now) => {
+    const progress = Math.min(1, (now - start) / duration);
+    const value = target * progress;
+    const formatted = decimals > 0
+      ? value.toFixed(decimals)
+      : Math.round(value).toLocaleString();
+    el.textContent = `${formatted}${suffix}`;
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      const finalValue = decimals > 0
+        ? target.toFixed(decimals)
+        : Math.round(target).toLocaleString();
+      el.textContent = `${finalValue}${suffix}`;
+    }
+  };
+
+  requestAnimationFrame(step);
+}
+
+const animationObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      if (entry.target.dataset.animate === 'bars') {
+        entry.target.classList.add('is-animated');
+      }
+      if (entry.target.dataset.count !== undefined) {
+        animateCount(entry.target);
+      }
+      animationObserver.unobserve(entry.target);
+    });
+  },
+  {
+    threshold: 0.3,
+    root: scrollContainer || null
+  }
+);
+
+barTargets.forEach((el) => animationObserver.observe(el));
+countTargets.forEach((el) => animationObserver.observe(el));
 
 // File upload handler
 document.getElementById('dbFile')?.addEventListener('change', async (e) => {

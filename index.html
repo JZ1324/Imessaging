@@ -190,7 +190,7 @@
               <div class="overview-grid">
                 <div class="stat">
                   <span class="stat-label">Reply speed</span>
-                  <span class="stat-value">1.9 hrs</span>
+                  <span class="stat-value" data-count="1.9" data-decimals="1" data-suffix=" hrs">1.9 hrs</span>
                   <span class="stat-sub">Last 30 days</span>
                 </div>
                 <div class="mini-kpis">
@@ -200,23 +200,23 @@
                   </div>
                   <div class="mini-kpi">
                     <span class="mini-kpi-label">Longest streak</span>
-                    <span class="mini-kpi-value">18 days</span>
+                    <span class="mini-kpi-value" data-count="18" data-suffix=" days">18 days</span>
                   </div>
                   <div class="mini-kpi">
                     <span class="mini-kpi-label">Energy score</span>
-                    <span class="mini-kpi-value">86</span>
+                    <span class="mini-kpi-value" data-count="86">86</span>
                   </div>
                   <div class="mini-kpi">
                     <span class="mini-kpi-label">Left on read</span>
-                    <span class="mini-kpi-value">3</span>
+                    <span class="mini-kpi-value" data-count="3">3</span>
                   </div>
                 </div>
               </div>
-              <div class="chart">
-                <div class="bar" style="height: 62%"></div>
-                <div class="bar" style="height: 48%"></div>
-                <div class="bar" style="height: 82%"></div>
-                <div class="bar" style="height: 36%"></div>
+              <div class="chart bar-animate" data-animate="bars">
+                <div class="bar" style="--bar-height: 62%"></div>
+                <div class="bar" style="--bar-height: 48%"></div>
+                <div class="bar" style="--bar-height: 82%"></div>
+                <div class="bar" style="--bar-height: 36%"></div>
               </div>
               <div class="tile-grid">
                 <div class="tile">
@@ -383,12 +383,12 @@
             <div class="demo-metrics">
               <div class="demo-metric">
                 <span class="demo-metric-label">Reply speed</span>
-                <span class="demo-metric-value">1.9 hrs</span>
+                <span class="demo-metric-value" data-count="1.9" data-decimals="1" data-suffix=" hrs">1.9 hrs</span>
                 <span class="demo-metric-sub">Median, 30 days</span>
               </div>
               <div class="demo-metric">
                 <span class="demo-metric-label">Left on read</span>
-                <span class="demo-metric-value">3</span>
+                <span class="demo-metric-value" data-count="3">3</span>
                 <span class="demo-metric-sub">7-day cap</span>
               </div>
               <div class="demo-metric">
@@ -398,7 +398,7 @@
               </div>
               <div class="demo-metric">
                 <span class="demo-metric-label">Longest streak</span>
-                <span class="demo-metric-value">18 days</span>
+                <span class="demo-metric-value" data-count="18" data-suffix=" days">18 days</span>
                 <span class="demo-metric-sub">Across all chats</span>
               </div>
             </div>
@@ -412,11 +412,11 @@
           <div class="demo-rail">
             <div class="demo-rail-card">
               <p class="demo-rail-title">Signal bands</p>
-              <div class="demo-rail-bars">
-                <span style="width: 82%"></span>
-                <span style="width: 64%"></span>
-                <span style="width: 92%"></span>
-                <span style="width: 48%"></span>
+              <div class="demo-rail-bars" data-animate="bars">
+                <span style="--bar-width: 82%"></span>
+                <span style="--bar-width: 64%"></span>
+                <span style="--bar-width: 92%"></span>
+                <span style="--bar-width: 48%"></span>
               </div>
               <div class="demo-rail-meta">
                 <div>

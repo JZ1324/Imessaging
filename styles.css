@@ -746,8 +746,16 @@ body {
 }
 
 .bar {
+  height: var(--bar-height, 0%);
   background: linear-gradient(180deg, var(--accent), rgba(92, 214, 255, 0.1));
   border-radius: 10px 10px 4px 4px;
+  transform-origin: bottom;
+  transform: scaleY(0.05);
+  transition: transform 0.8s ease;
+}
+
+.bar-animate.is-animated .bar {
+  transform: scaleY(1);
 }
 
 .tile-grid {
@@ -1287,9 +1295,17 @@ body {
 }
 
 .demo-rail-bars span {
+  width: var(--bar-width, 0%);
   height: 8px;
   border-radius: 999px;
   background: linear-gradient(90deg, rgba(92, 214, 255, 0.7), rgba(76, 240, 180, 0.5));
+  transform-origin: left;
+  transform: scaleX(0.05);
+  transition: transform 0.8s ease;
+}
+
+.demo-rail-bars.is-animated span {
+  transform: scaleX(1);
 }
 
 .demo-rail-meta {
