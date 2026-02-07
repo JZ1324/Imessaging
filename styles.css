@@ -793,6 +793,75 @@ body {
   padding: 80px 7vw;
 }
 
+.how,
+.use-cases {
+  padding: 70px 7vw;
+  position: relative;
+  z-index: 2;
+}
+
+.how-grid,
+.use-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.how-card {
+  padding: 20px;
+  border-radius: 18px;
+  border: 1px solid var(--card-border);
+  background: linear-gradient(160deg, rgba(18, 24, 36, 0.9), rgba(12, 16, 24, 0.9));
+  display: grid;
+  gap: 12px;
+}
+
+.how-step {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.how-card h3 {
+  font-size: 18px;
+}
+
+.how-card p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.how-note {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.use-card {
+  padding: 20px;
+  border-radius: 18px;
+  border: 1px solid var(--card-border);
+  background: var(--card);
+  display: grid;
+  gap: 10px;
+}
+
+.use-tag {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  color: var(--accent-2);
+}
+
+.use-card h3 {
+  font-size: 17px;
+}
+
+.use-card p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
 .section-title {
   margin-bottom: 28px;
 }

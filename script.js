@@ -148,7 +148,7 @@ document.querySelectorAll('.screen-tabs .pill').forEach(button => {
 
 // Subtle scroll reveal
 const revealTargets = document.querySelectorAll(
-  'section, .hero, .feature-grid .card, .privacy-card, .cta-card, .pricing-card'
+  'section, .hero, .feature-grid .card, .privacy-card, .cta-card, .pricing-card, .how-card, .use-card'
 );
 
 const revealObserver = new IntersectionObserver(
