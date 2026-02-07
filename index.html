@@ -371,41 +371,72 @@
             <a class="secondary" href="#features">Explore features</a>
           </div>
         </div>
-        <div class="demo-card">
-          <div class="demo-header">
-            <div>
-              <p class="eyebrow">Sample Run</p>
-              <h3>Inbox Pulse</h3>
+        <div class="demo-showcase">
+          <div class="demo-card">
+            <div class="demo-header">
+              <div>
+                <p class="eyebrow">Sample Run</p>
+                <h3>Inbox Pulse</h3>
+              </div>
+              <span class="demo-pill">Dataset: Demo</span>
             </div>
-            <span class="demo-pill">Dataset: Demo</span>
+            <div class="demo-metrics">
+              <div class="demo-metric">
+                <span class="demo-metric-label">Reply speed</span>
+                <span class="demo-metric-value">1.9 hrs</span>
+                <span class="demo-metric-sub">Median, 30 days</span>
+              </div>
+              <div class="demo-metric">
+                <span class="demo-metric-label">Left on read</span>
+                <span class="demo-metric-value">3</span>
+                <span class="demo-metric-sub">7-day cap</span>
+              </div>
+              <div class="demo-metric">
+                <span class="demo-metric-label">Top chat</span>
+                <span class="demo-metric-value">Alex R.</span>
+                <span class="demo-metric-sub">1,248 messages</span>
+              </div>
+              <div class="demo-metric">
+                <span class="demo-metric-label">Longest streak</span>
+                <span class="demo-metric-value">18 days</span>
+                <span class="demo-metric-sub">Across all chats</span>
+              </div>
+            </div>
+            <div class="demo-tags">
+              <span>Overview</span>
+              <span>Chats</span>
+              <span>Filters</span>
+              <span>Reports</span>
+            </div>
           </div>
-          <div class="demo-metrics">
-            <div class="demo-metric">
-              <span class="demo-metric-label">Reply speed</span>
-              <span class="demo-metric-value">1.9 hrs</span>
-              <span class="demo-metric-sub">Median, 30 days</span>
+          <div class="demo-rail">
+            <div class="demo-rail-card">
+              <p class="demo-rail-title">Signal bands</p>
+              <div class="demo-rail-bars">
+                <span style="width: 82%"></span>
+                <span style="width: 64%"></span>
+                <span style="width: 92%"></span>
+                <span style="width: 48%"></span>
+              </div>
+              <div class="demo-rail-meta">
+                <div>
+                  <span class="demo-meta-label">Active chats</span>
+                  <span class="demo-meta-value">42</span>
+                </div>
+                <div>
+                  <span class="demo-meta-label">Last sync</span>
+                  <span class="demo-meta-value">2 min ago</span>
+                </div>
+              </div>
             </div>
-            <div class="demo-metric">
-              <span class="demo-metric-label">Left on read</span>
-              <span class="demo-metric-value">3</span>
-              <span class="demo-metric-sub">7-day cap</span>
+            <div class="demo-rail-card">
+              <p class="demo-rail-title">Top signals</p>
+              <ul class="demo-rail-list">
+                <li>Reply speed trend: steady</li>
+                <li>Mood score: Friendly</li>
+                <li>Peak hour: 9:30 PM</li>
+              </ul>
             </div>
-            <div class="demo-metric">
-              <span class="demo-metric-label">Top chat</span>
-              <span class="demo-metric-value">Alex R.</span>
-              <span class="demo-metric-sub">1,248 messages</span>
-            </div>
-            <div class="demo-metric">
-              <span class="demo-metric-label">Longest streak</span>
-              <span class="demo-metric-value">18 days</span>
-              <span class="demo-metric-sub">Across all chats</span>
-            </div>
-          </div>
-          <div class="demo-tags">
-            <span>Overview</span>
-            <span>Chats</span>
-            <span>Filters</span>
-            <span>Reports</span>
           </div>
         </div>
       </div>
@@ -564,15 +595,39 @@
     </section>
 
     <section class="cta" id="download">
-      <div class="cta-card">
-        <div>
+      <div class="cta-grid">
+        <div class="cta-card cta-main">
           <p class="eyebrow">Download</p>
           <h2>Ready to see your iMessages differently?</h2>
           <p>macOS 13+ required. Automatic updates via Sparkle.</p>
+          <div class="cta-actions">
+            <a class="primary" href="updates/iMessages-Stats.dmg" download>Download the app</a>
+            <a class="secondary" href="#pricing">See pricing</a>
+          </div>
         </div>
-        <div class="cta-actions">
-          <a class="primary" href="updates/iMessages-Stats.dmg" download>Download the app</a>
-          <a class="secondary" href="#pricing">See pricing</a>
+        <div class="cta-card cta-panel">
+          <div class="cta-panel-top">
+            <div>
+              <p class="eyebrow">Package</p>
+              <h3>iMessages Stats DMG</h3>
+            </div>
+            <span class="cta-pill">Version 1.0</span>
+          </div>
+          <div class="cta-meta">
+            <div>
+              <span class="cta-meta-label">Install</span>
+              <span class="cta-meta-value">Drag to Applications</span>
+            </div>
+            <div>
+              <span class="cta-meta-label">Updates</span>
+              <span class="cta-meta-value">Sparkle feed</span>
+            </div>
+            <div>
+              <span class="cta-meta-label">License</span>
+              <span class="cta-meta-value">Early Access</span>
+            </div>
+          </div>
+          <a class="secondary" href="#faq">Read the FAQ</a>
         </div>
       </div>
     </section>
@@ -598,30 +653,49 @@
         <h2>Answers before you install.</h2>
         <p class="section-description">Short, technical details for the most common questions.</p>
       </div>
-      <div class="faq-grid">
-        <div class="faq-item">
-          <h3>Where is the data stored?</h3>
-          <p>All local analytics read from chat.db on your Mac. Reports are exported to your chosen folder.</p>
+      <div class="faq-layout">
+        <div class="faq-side">
+          <div class="faq-side-card">
+            <p class="eyebrow">Support</p>
+            <h3>Fast answers, no fluff.</h3>
+            <p>Everything runs locally unless you opt into sync. Permissions are explicit and reversible.</p>
+            <div class="faq-side-tags">
+              <span>Local analytics</span>
+              <span>Optional sync</span>
+              <span>macOS 13+</span>
+            </div>
+          </div>
+          <div class="faq-side-card">
+            <p class="eyebrow">Still unsure?</p>
+            <p>Try the web analyzer to see the workflow before downloading the app.</p>
+            <a class="secondary" href="#demo">View demo</a>
+          </div>
         </div>
-        <div class="faq-item">
-          <h3>Do I need an account?</h3>
-          <p>No account is required for local analytics. Supabase sync is optional.</p>
-        </div>
-        <div class="faq-item">
-          <h3>What permissions are required?</h3>
-          <p>Full Disk Access is required to read chat.db. Contacts access is optional.</p>
-        </div>
-        <div class="faq-item">
-          <h3>How do updates work?</h3>
-          <p>Updates use Sparkle and are downloaded directly from the appcast feed.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Can I remove the app cleanly?</h3>
-          <p>Yes. Delete the app and exported reports to remove local artifacts.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Does the demo use my data?</h3>
-          <p>The live demo uses a synthetic dataset for illustration only.</p>
+        <div class="faq-grid">
+          <details class="faq-item" open>
+            <summary>Where is the data stored?</summary>
+            <p>All local analytics read from chat.db on your Mac. Reports are exported to your chosen folder.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Do I need an account?</summary>
+            <p>No account is required for local analytics. Supabase sync is optional.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What permissions are required?</summary>
+            <p>Full Disk Access is required to read chat.db. Contacts access is optional.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How do updates work?</summary>
+            <p>Updates use Sparkle and are downloaded directly from the appcast feed.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Can I remove the app cleanly?</summary>
+            <p>Yes. Delete the app and exported reports to remove local artifacts.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Does the demo use my data?</summary>
+            <p>The live demo uses a synthetic dataset for illustration only.</p>
+          </details>
         </div>
       </div>
     </section>
