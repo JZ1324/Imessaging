@@ -912,7 +912,7 @@ body {
   max-width: 600px;
   line-height: 1.7;
   font-size: 16px;
-  margin-top: 12px;
+  margin-top: 10px;
 }
 
 .grid {
@@ -1261,7 +1261,7 @@ body {
 .demo-copy p {
   color: var(--muted);
   line-height: 1.6;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .demo-list {
