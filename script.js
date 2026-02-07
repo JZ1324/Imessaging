@@ -251,6 +251,9 @@ function resetCount(el) {
   el.textContent = `${zero}${suffix}`;
 }
 
+barTargets.forEach((el) => el.classList.remove('is-animated'));
+countTargets.forEach((el) => resetCount(el));
+
 const animationObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -263,6 +266,7 @@ const animationObserver = new IntersectionObserver(
       }
       if (entry.target.dataset.count !== undefined) {
         if (entry.isIntersecting) {
+          resetCount(entry.target);
           animateCount(entry.target);
         } else {
           resetCount(entry.target);
@@ -271,7 +275,8 @@ const animationObserver = new IntersectionObserver(
     });
   },
   {
-    threshold: 0.3,
+    threshold: 0.2,
+    rootMargin: '0px 0px -10% 0px',
     root: scrollContainer || null
   }
 );
