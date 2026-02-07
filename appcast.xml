@@ -12,12 +12,12 @@
       <sparkle:version>1.0</sparkle:version>
       <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
-      <pubDate>Fri, 06 Feb 2026 12:00:00 +0000</pubDate>
+      <pubDate>Fri, 06 Feb 2026 13:13:04 +0000</pubDate>
       <enclosure
         url="https://jz1324.github.io/Imessaging/updates/ImessageStatsMacApp-1.0.zip"
-        length="1966103"
+        length="1901070"
         type="application/octet-stream"
-        sparkle:edSignature="YjC4VbWlPBWvhf4k6Zg9SGJPEbijNHtk4Oqml2VMQtngKRGk4x5m3xRvfWgPSQZ19tK6xVRMML+ISghgj6DLBw=="
+        sparkle:edSignature="udGw7c/jHHrNu5xICbLcjzv5TiZqBZyHWAXe30ekJO0r4Z0xX9x9PDD8NDR1AF3Hm00m6PEToM0meTSX0giDDQ=="
         sparkle:os="macos" />
     </item>
   </channel>
