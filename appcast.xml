@@ -8,16 +8,16 @@
     <description>Updates for iMessages Stats</description>
     <language>en</language>
     <item>
-      <title>Version 1.0.26</title>
-      <sparkle:version>27</sparkle:version>
-      <sparkle:shortVersionString>1.0.26</sparkle:shortVersionString>
+      <title>Version 1.0.27</title>
+      <sparkle:version>28</sparkle:version>
+      <sparkle:shortVersionString>1.0.27</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
-      <pubDate>Sat, 07 Feb 2026 12:33:55 +0000</pubDate>
+      <pubDate>Sat, 07 Feb 2026 12:55:53 +0000</pubDate>
       <enclosure
         url="https://jz1324.github.io/Imessaging/updates/iMessages-Stats.dmg"
-        length="6602114"
+        length="6599842"
         type="application/octet-stream"
-        sparkle:edSignature="mnQDrAKQIAX7xso/lyv2BSWn20pg8t3iGA/gk5MzGZYTtrWrdCyL+VjR/u+WjwtaRTbVyBWB+WgmNwKD2GKPCg=="
+        sparkle:edSignature="RNTYrtWlNX0g7NHTw/Bk/IsM7xC17E6DQzf8QuBEk/jWWvCMl1NC6Nh+hrygXSeQYTjL7gKldQzbjScqnHGlBg=="
         sparkle:os="macos" />
     </item>
   </channel>
