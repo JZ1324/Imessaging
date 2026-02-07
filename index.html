@@ -28,8 +28,10 @@
       <div class="logo">iMessages Stats</div>
       <nav class="nav-links">
         <a href="#features">Features</a>
+        <a href="#demo">Demo</a>
         <a href="#privacy">Privacy</a>
         <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
         <a href="#download" class="nav-cta">Download</a>
       </nav>
     </header>
@@ -340,6 +342,75 @@
       </div>
     </section>
 
+    <section class="demo" id="demo">
+      <div class="section-title">
+        <p class="eyebrow">Live Demo</p>
+        <h2>Preview the analytics before you install.</h2>
+        <p class="section-description">A sample dataset shows the same stats and structure you get in the macOS app.</p>
+      </div>
+      <div class="demo-layout">
+        <div class="demo-copy">
+          <h3>What you will see</h3>
+          <p>Clean rollups for reply speed, streaks, and messaging rhythm with a focus on clarity over noise.</p>
+          <div class="demo-list">
+            <div class="demo-item">
+              <span class="demo-label">Signal stack</span>
+              <span class="demo-value">Reply speed, streaks, sentiment hints, top chats</span>
+            </div>
+            <div class="demo-item">
+              <span class="demo-label">Scope</span>
+              <span class="demo-value">Sample range: last 30 days, 100 chats</span>
+            </div>
+            <div class="demo-item">
+              <span class="demo-label">Output</span>
+              <span class="demo-value">On-screen dashboard + HTML report</span>
+            </div>
+          </div>
+          <div class="demo-actions">
+            <a class="primary" href="updates/iMessages-Stats.dmg" download>Download DMG</a>
+            <a class="secondary" href="#features">Explore features</a>
+          </div>
+        </div>
+        <div class="demo-card">
+          <div class="demo-header">
+            <div>
+              <p class="eyebrow">Sample Run</p>
+              <h3>Inbox Pulse</h3>
+            </div>
+            <span class="demo-pill">Dataset: Demo</span>
+          </div>
+          <div class="demo-metrics">
+            <div class="demo-metric">
+              <span class="demo-metric-label">Reply speed</span>
+              <span class="demo-metric-value">1.9 hrs</span>
+              <span class="demo-metric-sub">Median, 30 days</span>
+            </div>
+            <div class="demo-metric">
+              <span class="demo-metric-label">Left on read</span>
+              <span class="demo-metric-value">3</span>
+              <span class="demo-metric-sub">7-day cap</span>
+            </div>
+            <div class="demo-metric">
+              <span class="demo-metric-label">Top chat</span>
+              <span class="demo-metric-value">Alex R.</span>
+              <span class="demo-metric-sub">1,248 messages</span>
+            </div>
+            <div class="demo-metric">
+              <span class="demo-metric-label">Longest streak</span>
+              <span class="demo-metric-value">18 days</span>
+              <span class="demo-metric-sub">Across all chats</span>
+            </div>
+          </div>
+          <div class="demo-tags">
+            <span>Overview</span>
+            <span>Chats</span>
+            <span>Filters</span>
+            <span>Reports</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="feature-grid" id="features">
       <div class="section-title">
         <p class="eyebrow">Features</p>
@@ -475,6 +546,20 @@
           <li>Contacts access is optional and used only to label chats.</li>
           <li>Sync uses your own Supabase project.</li>
         </ul>
+        <div class="privacy-grid">
+          <div class="privacy-tile">
+            <p class="privacy-title">Local first</p>
+            <p>Processing happens on your Mac. No upload step required.</p>
+          </div>
+          <div class="privacy-tile">
+            <p class="privacy-title">Permission control</p>
+            <p>You decide when to grant Full Disk Access or Contacts access.</p>
+          </div>
+          <div class="privacy-tile">
+            <p class="privacy-title">Optional sync</p>
+            <p>Supabase sync is off by default and uses your own credentials.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -504,6 +589,40 @@
           <p>Free while we ship the first big release.</p>
         </div>
         <a class="primary" href="#download">Download now</a>
+      </div>
+    </section>
+
+    <section class="faq" id="faq">
+      <div class="section-title">
+        <p class="eyebrow">FAQ</p>
+        <h2>Answers before you install.</h2>
+        <p class="section-description">Short, technical details for the most common questions.</p>
+      </div>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h3>Where is the data stored?</h3>
+          <p>All local analytics read from chat.db on your Mac. Reports are exported to your chosen folder.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Do I need an account?</h3>
+          <p>No account is required for local analytics. Supabase sync is optional.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What permissions are required?</h3>
+          <p>Full Disk Access is required to read chat.db. Contacts access is optional.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do updates work?</h3>
+          <p>Updates use Sparkle and are downloaded directly from the appcast feed.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Can I remove the app cleanly?</h3>
+          <p>Yes. Delete the app and exported reports to remove local artifacts.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Does the demo use my data?</h3>
+          <p>The live demo uses a synthetic dataset for illustration only.</p>
+        </div>
       </div>
     </section>
     <footer class="footer">
