@@ -218,13 +218,11 @@ const barTargets = document.querySelectorAll('[data-animate="bars"]');
 const countTargets = document.querySelectorAll('[data-count]');
 
 function animateCount(el) {
-  if (el.dataset.animated === 'true') return;
   const target = Number(el.dataset.count || 0);
   const decimals = Number(el.dataset.decimals || (String(el.dataset.count).includes('.') ? 1 : 0));
   const suffix = el.dataset.suffix || '';
   const duration = 1000;
   const start = performance.now();
-  el.dataset.animated = 'true';
 
   const step = (now) => {
     const progress = Math.min(1, (now - start) / duration);
@@ -246,17 +244,30 @@ function animateCount(el) {
   requestAnimationFrame(step);
 }
 
+function resetCount(el) {
+  const decimals = Number(el.dataset.decimals || (String(el.dataset.count).includes('.') ? 1 : 0));
+  const suffix = el.dataset.suffix || '';
+  const zero = decimals > 0 ? (0).toFixed(decimals) : '0';
+  el.textContent = `${zero}${suffix}`;
+}
+
 const animationObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
       if (entry.target.dataset.animate === 'bars') {
-        entry.target.classList.add('is-animated');
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-animated');
+        } else {
+          entry.target.classList.remove('is-animated');
+        }
       }
       if (entry.target.dataset.count !== undefined) {
-        animateCount(entry.target);
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+        } else {
+          resetCount(entry.target);
+        }
       }
-      animationObserver.unobserve(entry.target);
     });
   },
   {
