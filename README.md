@@ -1,5 +1,7 @@
 # iMessage Stats (No-AI)
 
+Product page for iMessages Stats lives in `Imessaging/`.
+
 Local iMessage stats from your `chat.db`, without any AI analysis. The script generates:
 - totals (sent/received)
 - response time stats

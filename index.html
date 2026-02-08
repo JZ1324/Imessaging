@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>iMessages Stats — Private iMessage analytics for macOS</title>
+  <meta name="description" content="iMessages Stats turns your iMessage history into a private dashboard. See reply speed, mood trends, and top chats. Built for macOS." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="bg-noise" aria-hidden="true"></div>
+  <div class="top-gradient" aria-hidden="true"></div>
+  <div class="particles" aria-hidden="true">
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+  </div>
+  <main>
+    <header class="nav">
+      <div class="logo">iMessages Stats</div>
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#use-cases">Use cases</a>
+        <a href="#demo">Demo</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#download" class="nav-cta">Download</a>
+      </nav>
+    </header>
+    <div id="analyzer" class="analyzer-wrapper" style="display: none;">
+      <div class="analyzer-container">
+        <button id="backToHome" class="back-btn">← Back to Home</button>
+        <div class="analyzer-header">
+          <h2>iMessage Analyzer</h2>
+          <p class="analyzer-subtitle">Upload your chat.db file to analyze your messages privately in your browser</p>
+        </div>
+        
+        <div id="uploadSection" class="upload-section">
+          <div class="upload-box">
+            <input type="file" id="dbFile" accept=".db,.sqlite,.sqlite3" />
+            <label for="dbFile" class="upload-label">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              <span>Click to upload chat.db</span>
+              <span class="upload-hint">Found at ~/Library/Messages/chat.db</span>
+            </label>
+          </div>
+          <div class="privacy-note">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            Your data never leaves your browser. Everything is processed locally.
+          </div>
+        </div>
+
+        <div id="loadingSection" class="loading-section" style="display: none;">
+          <div class="spinner"></div>
+          <p id="loadingText">Processing your messages...</p>
+        </div>
+
+        <div id="statsSection" class="stats-section" style="display: none;">
+          <div class="stats-nav">
+            <button class="stat-tab active" data-tab="overview">Overview</button>
+            <button class="stat-tab" data-tab="chats">Top Chats</button>
+            <button class="stat-tab" data-tab="timing">Timing</button>
+            <button class="stat-tab" data-tab="content">Content</button>
+          </div>
+
+          <div id="overviewTab" class="tab-content active">
+            <div class="stats-grid">
+              <div class="stat-card">
+                <h3>Total Messages</h3>
+                <p class="stat-number" id="totalMessages">0</p>
+              </div>
+              <div class="stat-card">
+                <h3>Messages Sent</h3>
+                <p class="stat-number" id="sentMessages">0</p>
+              </div>
+              <div class="stat-card">
+                <h3>Messages Received</h3>
+                <p class="stat-number" id="receivedMessages">0</p>
+              </div>
+              <div class="stat-card">
+                <h3>Total Chats</h3>
+                <p class="stat-number" id="totalChats">0</p>
+              </div>
+            </div>
+            
+            <div class="chart-card">
+              <h3>Message Activity Over Time</h3>
+              <canvas id="activityChart"></canvas>
+            </div>
+
+            <div class="chart-card">
+              <h3>Messages by Day of Week</h3>
+              <canvas id="weekdayChart"></canvas>
+            </div>
+          </div>
+
+          <div id="chatsTab" class="tab-content">
+            <div class="chart-card">
+              <h3>Top 10 Contacts by Message Count</h3>
+              <div id="topContactsList" class="contacts-list"></div>
+            </div>
+          </div>
+
+          <div id="timingTab" class="tab-content">
+            <div class="chart-card">
+              <h3>Messages by Hour of Day</h3>
+              <canvas id="hourChart"></canvas>
+            </div>
+          </div>
+
+          <div id="contentTab" class="tab-content">
+            <div class="stats-grid">
+              <div class="stat-card">
+                <h3>Avg Message Length</h3>
+                <p class="stat-number" id="avgLength">0</p>
+                <p class="stat-label">characters</p>
+              </div>
+              <div class="stat-card">
+                <h3>Total Attachments</h3>
+                <p class="stat-number" id="totalAttachments">0</p>
+              </div>
+            </div>
+            
+            <div class="chart-card">
+              <h3>Top Emoji Usage</h3>
+              <div id="emojiList" class="emoji-list"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="hero" id="top">
+      <div class="hero-copy">
+        <p class="eyebrow">macOS app</p>
+        <h1>Turn iMessages into clarity.</h1>
+        <p class="lede">iMessages Stats turns your chat history into a private dashboard: reply speed, mood signals, top chats, and the first conversation that started it all.</p>
+        <div class="hero-actions">
+          <button class="primary" id="tryAnalyzer">Try Web Analyzer</button>
+          <a class="secondary" href="#features">See what's inside</a>
+        </div>
+        <div class="hero-meta">
+          <div>
+            <span class="meta-label">Private by default</span>
+            <span class="meta-value">Local processing</span>
+          </div>
+          <div>
+            <span class="meta-label">Sync optional</span>
+            <span class="meta-value">Supabase-ready</span>
+          </div>
+          <div>
+            <span class="meta-label">Auto updates</span>
+            <span class="meta-value">Sparkle</span>
+          </div>
+        </div>
+        <div class="trust-badges">
+          <span class="trust-badge">No uploads</span>
+          <span class="trust-badge">Local-only</span>
+          <span class="trust-badge">Fast refresh</span>
+          <span class="trust-badge">Exportable reports</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="screen">
+          <div class="screen-top">
+            <div class="window-controls">
+              <span class="window-dot close"></span>
+              <span class="window-dot minimize"></span>
+              <span class="window-dot zoom"></span>
+            </div>
+            <div class="screen-title">iMessages Stats</div>
+            <div class="screen-status">Synced</div>
+          </div>
+          <div class="screen-tabs">
+            <button class="pill active" data-panel="overview" type="button">Overview</button>
+            <button class="pill" data-panel="chats" type="button">Chats</button>
+            <button class="pill" data-panel="filters" type="button">Filters</button>
+          </div>
+          <div class="screen-body">
+            <div class="screen-panel active" data-panel="overview">
+              <div class="overview-grid">
+                <div class="stat">
+                  <span class="stat-label">Reply speed</span>
+                  <span class="stat-value" data-count="1.9" data-decimals="1" data-suffix=" hrs">1.9 hrs</span>
+                  <span class="stat-sub">Last 30 days</span>
+                </div>
+                <div class="mini-kpis">
+                  <div class="mini-kpi">
+                    <span class="mini-kpi-label">Sent / Received</span>
+                    <span class="mini-kpi-value">52% / 48%</span>
+                  </div>
+                  <div class="mini-kpi">
+                    <span class="mini-kpi-label">Longest streak</span>
+                    <span class="mini-kpi-value" data-count="18" data-suffix=" days">18 days</span>
+                  </div>
+                  <div class="mini-kpi">
+                    <span class="mini-kpi-label">Energy score</span>
+                    <span class="mini-kpi-value" data-count="86">86</span>
+                  </div>
+                  <div class="mini-kpi">
+                    <span class="mini-kpi-label">Left on read</span>
+                    <span class="mini-kpi-value" data-count="3">3</span>
+                  </div>
+                </div>
+              </div>
+              <div class="chart bar-animate" data-animate="bars">
+                <div class="bar" style="--bar-height: 62%"></div>
+                <div class="bar" style="--bar-height: 48%"></div>
+                <div class="bar" style="--bar-height: 82%"></div>
+                <div class="bar" style="--bar-height: 36%"></div>
+              </div>
+              <div class="tile-grid">
+                <div class="tile">
+                  <span class="tile-title">Top chat</span>
+                  <span class="tile-value">Alex R.</span>
+                </div>
+                <div class="tile">
+                  <span class="tile-title">Mood</span>
+                  <span class="tile-value">Friendly</span>
+                </div>
+                <div class="tile">
+                  <span class="tile-title">First convo</span>
+                  <span class="tile-value">Aug 2019</span>
+                </div>
+              </div>
+            </div>
+            <div class="screen-panel" data-panel="chats">
+              <div class="panel-grid">
+                <div class="panel-col">
+                  <div class="mini-list">
+                    <div class="mini-item">
+                      <span class="mini-title">Alex R.</span>
+                      <span class="mini-value">1,248 msgs</span>
+                    </div>
+                    <div class="mini-item">
+                      <span class="mini-title">Fam Group</span>
+                      <span class="mini-value">982 msgs</span>
+                    </div>
+                    <div class="mini-item">
+                      <span class="mini-title">Maya</span>
+                      <span class="mini-value">741 msgs</span>
+                    </div>
+                    <div class="mini-item">
+                      <span class="mini-title">Work Crew</span>
+                      <span class="mini-value">624 msgs</span>
+                    </div>
+                  </div>
+                  <div class="mini-note">Top chats, response pace, and last active snapshot.</div>
+                </div>
+                <div class="panel-col">
+                  <div class="mini-stats">
+                    <div class="mini-stat">
+                      <span class="mini-stat-label">Avg reply</span>
+                      <span class="mini-stat-value">42m</span>
+                    </div>
+                    <div class="mini-stat">
+                      <span class="mini-stat-label">Longest streak</span>
+                      <span class="mini-stat-value">18d</span>
+                    </div>
+                    <div class="mini-stat">
+                      <span class="mini-stat-label">Last active</span>
+                      <span class="mini-stat-value">2h ago</span>
+                    </div>
+                    <div class="mini-stat">
+                      <span class="mini-stat-label">Left on read</span>
+                      <span class="mini-stat-value">3</span>
+                    </div>
+                  </div>
+                  <div class="mini-tags">
+                    <span class="mini-tag">Sort: Most messages</span>
+                    <span class="mini-tag">Pinned: 4</span>
+                    <span class="mini-tag">Groups: 6</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="screen-panel" data-panel="filters">
+              <div class="panel-grid">
+                <div class="panel-col">
+                  <div class="filter-group">
+                    <span class="filter-label">Date range</span>
+                    <div class="chip-row">
+                      <span class="chip active">Last 30 days</span>
+                      <span class="chip">Last 90 days</span>
+                      <span class="chip">All time</span>
+                    </div>
+                  </div>
+                  <div class="filter-group">
+                    <span class="filter-label">Chat type</span>
+                    <div class="chip-row">
+                      <span class="chip active">Direct</span>
+                      <span class="chip">Groups</span>
+                    </div>
+                  </div>
+                  <div class="filter-group">
+                    <span class="filter-label">Response threshold</span>
+                    <div class="chip-row">
+                      <span class="chip active">7d cap</span>
+                      <span class="chip">24h</span>
+                      <span class="chip">6h</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-col">
+                  <div class="filter-group">
+                    <span class="filter-label">Sort by</span>
+                    <div class="chip-row">
+                      <span class="chip active">Most messages</span>
+                      <span class="chip">Most recent</span>
+                      <span class="chip">Fastest reply</span>
+                    </div>
+                  </div>
+                  <div class="mini-stats">
+                    <div class="mini-stat">
+                      <span class="mini-stat-label">Top chats</span>
+                      <span class="mini-stat-value">100</span>
+                    </div>
+                    <div class="mini-stat">
+                      <span class="mini-stat-label">Since</span>
+                      <span class="mini-stat-value">Jan 7</span>
+                    </div>
+                    <div class="mini-stat">
+                      <span class="mini-stat-label">Until</span>
+                      <span class="mini-stat-value">Today</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="glow" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="demo banded" id="demo">
+      <div class="section-title">
+        <p class="eyebrow">Live Demo</p>
+        <h2>Preview the analytics before you install.</h2>
+        <p class="section-description">Sample data mirrors the stats you will see in the macOS app.</p>
+      </div>
+      <div class="demo-layout">
+        <div class="demo-copy">
+          <h3>What you will see</h3>
+          <p>Clear rollups for reply speed, streaks, and messaging rhythm.</p>
+          <div class="demo-list">
+            <div class="demo-item">
+              <span class="demo-label">Signal stack</span>
+              <span class="demo-value">Reply speed, streaks, sentiment hints, top chats</span>
+            </div>
+            <div class="demo-item">
+              <span class="demo-label">Scope</span>
+              <span class="demo-value">Sample range: last 30 days, 100 chats</span>
+            </div>
+            <div class="demo-item">
+              <span class="demo-label">Output</span>
+              <span class="demo-value">On-screen dashboard + HTML report</span>
+            </div>
+          </div>
+          <div class="demo-actions">
+            <a class="primary" href="updates/iMessages-Stats.dmg" download>Download DMG</a>
+            <a class="secondary" href="#features">Explore features</a>
+          </div>
+        </div>
+        <div class="demo-showcase">
+          <div class="demo-card">
+            <div class="demo-header">
+              <div>
+                <p class="eyebrow">Sample Run</p>
+                <h3>Inbox Pulse</h3>
+              </div>
+              <span class="demo-pill">Dataset: Demo</span>
+            </div>
+            <div class="demo-metrics">
+              <div class="demo-metric">
+                <span class="demo-metric-label">Reply speed</span>
+                <span class="demo-metric-value" data-count="1.9" data-decimals="1" data-suffix=" hrs">1.9 hrs</span>
+                <span class="demo-metric-sub">Median, 30 days</span>
+              </div>
+              <div class="demo-metric">
+                <span class="demo-metric-label">Left on read</span>
+                <span class="demo-metric-value" data-count="3">3</span>
+                <span class="demo-metric-sub">7-day cap</span>
+              </div>
+              <div class="demo-metric">
+                <span class="demo-metric-label">Top chat</span>
+                <span class="demo-metric-value">Alex R.</span>
+                <span class="demo-metric-sub">1,248 messages</span>
+              </div>
+              <div class="demo-metric">
+                <span class="demo-metric-label">Longest streak</span>
+                <span class="demo-metric-value" data-count="18" data-suffix=" days">18 days</span>
+                <span class="demo-metric-sub">Across all chats</span>
+              </div>
+            </div>
+            <div class="demo-tags">
+              <span>Overview</span>
+              <span>Chats</span>
+              <span>Filters</span>
+              <span>Reports</span>
+            </div>
+          </div>
+          <div class="demo-rail">
+            <div class="demo-rail-card">
+              <p class="demo-rail-title">Signal bands</p>
+              <div class="demo-rail-bars" data-animate="bars">
+                <span style="--bar-width: 82%"></span>
+                <span style="--bar-width: 64%"></span>
+                <span style="--bar-width: 92%"></span>
+                <span style="--bar-width: 48%"></span>
+              </div>
+              <div class="demo-rail-meta">
+                <div>
+                  <span class="demo-meta-label">Active chats</span>
+                  <span class="demo-meta-value">42</span>
+                </div>
+                <div>
+                  <span class="demo-meta-label">Last sync</span>
+                  <span class="demo-meta-value">2 min ago</span>
+                </div>
+              </div>
+            </div>
+            <div class="demo-rail-card">
+              <p class="demo-rail-title">Top signals</p>
+              <ul class="demo-rail-list">
+                <li>Reply speed trend: steady</li>
+                <li>Mood score: Friendly</li>
+                <li>Peak hour: 9:30 PM</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="feature-grid" id="features">
+      <div class="section-title">
+        <p class="eyebrow">Features</p>
+        <h2>See your messages like a pro.</h2>
+        <p class="section-description">Charts and summaries that show patterns across every chat.</p>
+      </div>
+      <div class="feature-layout">
+        <aside class="feature-rail">
+          <div class="feature-rail-card">
+            <div class="feature-rail-block">
+              <p class="feature-rail-title">Report Summary</p>
+              <div class="feature-kpis">
+                <div class="feature-kpi">
+                  <span class="feature-kpi-label">Generated</span>
+                  <span class="feature-kpi-value">Today, 1:42 PM</span>
+                </div>
+                <div class="feature-kpi">
+                  <span class="feature-kpi-label">Top chats</span>
+                  <span class="feature-kpi-value">100</span>
+                </div>
+                <div class="feature-kpi">
+                  <span class="feature-kpi-label">Threshold</span>
+                  <span class="feature-kpi-value">168h</span>
+                </div>
+                <div class="feature-kpi">
+                  <span class="feature-kpi-label">Date range</span>
+                  <span class="feature-kpi-value">Last 30 days</span>
+                </div>
+              </div>
+            </div>
+            <div class="feature-rail-divider"></div>
+            <div class="feature-rail-block">
+              <p class="feature-rail-title">App Modules</p>
+              <ul class="feature-rail-list">
+                <li>Overview</li>
+                <li>Chats</li>
+                <li>Filters</li>
+                <li>Reports</li>
+                <li>Updates</li>
+              </ul>
+            </div>
+          </div>
+        </aside>
+        <div class="grid feature-cards">
+          <article class="card">
+            <span class="feature-tag">Overview</span>
+            <h3>Stat grid</h3>
+            <p>High-level totals for sent, received, reply speed, left-on-read, and streaks in one view.</p>
+          </article>
+          <article class="card">
+            <span class="feature-tag">Overview</span>
+            <h3>Overview charts</h3>
+            <p>Sent vs received trends, read behavior, and activity splits to visualize momentum.</p>
+          </article>
+          <article class="card">
+            <span class="feature-tag">Overview</span>
+            <h3>Summary tabs</h3>
+            <p>Key metrics with trimmed averages and a 7-day cap for left-on-read outliers.</p>
+          </article>
+          <article class="card">
+            <span class="feature-tag">Chats</span>
+            <h3>Chat controls</h3>
+            <p>Filter by DM or group, search by name, and sort by most messages or most recent.</p>
+          </article>
+          <article class="card">
+            <span class="feature-tag">Chats</span>
+            <h3>Chat table</h3>
+            <p>Ranked list of chats with quick context, counts, and last activity timestamps.</p>
+          </article>
+          <article class="card">
+            <span class="feature-tag">Chats</span>
+            <h3>Group detail view</h3>
+            <p>Deep-dive into a chat with participant stats, top words, and mood detail drill-downs.</p>
+          </article>
+          <article class="card">
+            <span class="feature-tag">Filters</span>
+            <h3>Date range</h3>
+            <p>Set since/until bounds with presets to control the time window of analysis.</p>
+          </article>
+          <article class="card">
+            <span class="feature-tag">Filters</span>
+            <h3>Thresholds</h3>
+            <p>Adjust left-on-read sensitivity and the number of top chats included in reports.</p>
+          </article>
+          <article class="card">
+            <span class="feature-tag">Reports</span>
+            <h3>Open HTML report</h3>
+            <p>Launch the generated HTML summary for sharing or archiving.</p>
+          </article>
+          <article class="card">
+            <span class="feature-tag">Reports</span>
+            <h3>Output folder</h3>
+            <p>Open the report output directory with the latest exports and assets.</p>
+          </article>
+          <article class="card">
+            <span class="feature-tag">Updates</span>
+            <h3>Version & feed</h3>
+            <p>See app version, Sparkle feed, and last update check in one place.</p>
+          </article>
+          <article class="card">
+            <span class="feature-tag">Updates</span>
+            <h3>Check for updates</h3>
+            <p>Trigger Sparkle to check and apply the latest release.</p>
+          </article>
+          <article class="card">
+            <span class="feature-tag">Access</span>
+            <h3>Full Disk Access</h3>
+            <p>Guided prompt to grant access to chat.db for local analysis.</p>
+          </article>
+          <article class="card">
+            <span class="feature-tag">Access</span>
+            <h3>Contacts permission</h3>
+            <p>Optional access to show names and photos instead of phone numbers.</p>
+          </article>
+          <article class="card">
+            <span class="feature-tag">Automation</span>
+            <h3>Auto refresh</h3>
+            <p>File watcher and timer keep reports up to date without manual refresh.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="how banded" id="how">
+      <div class="section-title">
+        <p class="eyebrow">How it works</p>
+        <h2>Three steps from chat.db to clarity.</h2>
+        <p class="section-description">Local processing, readable dashboards, exportable reports.</p>
+      </div>
+      <div class="how-grid">
+        <article class="how-card">
+          <span class="how-step">01</span>
+          <h3>Grant access</h3>
+          <p>Enable Full Disk Access so the app can read chat.db on your Mac.</p>
+          <span class="how-note">Contacts access is optional.</span>
+        </article>
+        <article class="how-card">
+          <span class="how-step">02</span>
+          <h3>Generate analytics</h3>
+          <p>We compute reply speed, streaks, and top chats locally with trimmed averages.</p>
+          <span class="how-note">No uploads. No background sync.</span>
+        </article>
+        <article class="how-card">
+          <span class="how-step">03</span>
+          <h3>Export your report</h3>
+          <p>Open the HTML summary or export a folder for archiving and sharing.</p>
+          <span class="how-note">Auto refresh keeps it current.</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="use-cases banded" id="use-cases">
+      <div class="section-title">
+        <p class="eyebrow">Use cases</p>
+        <h2>Built for people who want the signal.</h2>
+        <p class="section-description">A few ways teams and individuals use iMessages Stats to understand their messaging rhythm.</p>
+      </div>
+      <div class="use-grid">
+        <article class="use-card">
+          <span class="use-tag">Founders</span>
+          <h3>Response health</h3>
+          <p>Track reply speed and left-on-read patterns with a clear 7-day cap.</p>
+        </article>
+        <article class="use-card">
+          <span class="use-tag">Families</span>
+          <h3>Group momentum</h3>
+          <p>See which group threads stay active and when people are most responsive.</p>
+        </article>
+        <article class="use-card">
+          <span class="use-tag">Teams</span>
+          <h3>Communication cadence</h3>
+          <p>Use streaks and timing charts to understand how often people engage.</p>
+        </article>
+        <article class="use-card">
+          <span class="use-tag">Power users</span>
+          <h3>Deep dive</h3>
+          <p>Export HTML reports to keep snapshots of different time ranges.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="privacy" id="privacy">
+      <div class="privacy-card">
+        <div>
+          <p class="eyebrow">Privacy</p>
+          <h2>Your data stays yours.</h2>
+          <p>All analytics run locally. Cloud sync is optional and only enabled after you sign in. You control when it syncs.</p>
+        </div>
+        <ul class="privacy-list">
+          <li>Local database access only when you grant Full Disk Access.</li>
+          <li>Contacts access is optional and used only to label chats.</li>
+          <li>Sync uses your own Supabase project.</li>
+        </ul>
+        <div class="privacy-grid">
+          <div class="privacy-tile">
+            <p class="privacy-title">Local first</p>
+            <p>Processing happens on your Mac. No upload step required.</p>
+          </div>
+          <div class="privacy-tile">
+            <p class="privacy-title">Permission control</p>
+            <p>You decide when to grant Full Disk Access or Contacts access.</p>
+          </div>
+          <div class="privacy-tile">
+            <p class="privacy-title">Optional sync</p>
+            <p>Supabase sync is off by default and uses your own credentials.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="download">
+      <div class="cta-grid">
+        <div class="cta-card cta-main">
+          <p class="eyebrow">Download</p>
+          <h2>Ready to see your iMessages clearly?</h2>
+          <p>macOS 13+ required. Automatic updates via Sparkle.</p>
+          <div class="cta-actions">
+            <a class="primary" href="updates/iMessages-Stats.dmg" download>Download the app</a>
+            <a class="secondary" href="#pricing">See pricing</a>
+          </div>
+        </div>
+        <div class="cta-card cta-panel">
+          <div class="cta-panel-top">
+            <div>
+              <p class="eyebrow">Package</p>
+              <h3>iMessages Stats DMG</h3>
+            </div>
+            <span class="cta-pill">Version 1.0</span>
+          </div>
+          <div class="cta-meta">
+            <div>
+              <span class="cta-meta-label">Install</span>
+              <span class="cta-meta-value">Drag to Applications</span>
+            </div>
+            <div>
+              <span class="cta-meta-label">Updates</span>
+              <span class="cta-meta-value">Sparkle feed</span>
+            </div>
+            <div>
+              <span class="cta-meta-label">License</span>
+              <span class="cta-meta-value">Early Access</span>
+            </div>
+          </div>
+          <a class="secondary" href="#faq">Read the FAQ</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+      <div class="section-title">
+        <p class="eyebrow">Pricing</p>
+        <h2>Simple, transparent.</h2>
+      </div>
+      <div class="pricing-card">
+        <div>
+          <h3>Free</h3>
+          <p class="price">$0</p>
+          <p>Local analytics on your Mac.</p>
+          <ul class="pricing-list">
+            <li>Overview + charts</li>
+            <li>DMs + group chat breakdown</li>
+            <li>Local HTML report export</li>
+          </ul>
+        </div>
+        <a class="primary" href="#download">Download</a>
+      </div>
+      <div class="pricing-card">
+        <div>
+          <h3>Pro (Monthly)</h3>
+          <p class="price">Manual</p>
+          <p>Cloud sync + admin tools. Activated manually for now.</p>
+          <ul class="pricing-list">
+            <li>Supabase sync</li>
+            <li>Cloud contacts sync</li>
+            <li>Admin panel</li>
+          </ul>
+          <p class="pricing-note">To activate: open the app, go to Access → Account → Get Pro (Monthly), then text JZ.</p>
+        </div>
+        <a class="secondary" href="#download">Download</a>
+      </div>
+    </section>
+
+    <section class="faq banded" id="faq">
+      <div class="section-title">
+        <p class="eyebrow">FAQ</p>
+        <h2>Answers before you install.</h2>
+        <p class="section-description">Short, technical details for the most common questions.</p>
+      </div>
+      <div class="faq-layout">
+        <div class="faq-side">
+          <div class="faq-side-card">
+            <p class="eyebrow">Support</p>
+            <h3>Fast answers.</h3>
+            <p>Everything runs locally unless you opt into sync. Permissions are explicit and reversible.</p>
+            <div class="faq-side-tags">
+              <span>Local analytics</span>
+              <span>Optional sync</span>
+              <span>macOS 13+</span>
+            </div>
+          </div>
+          <div class="faq-side-card">
+            <p class="eyebrow">Still unsure?</p>
+            <p>Try the web analyzer to see the workflow before downloading the app.</p>
+            <a class="secondary" href="#demo">View demo</a>
+          </div>
+        </div>
+        <div class="faq-grid">
+          <details class="faq-item" open>
+            <summary>Where is the data stored?</summary>
+            <div class="faq-answer">
+              <p>All local analytics read from chat.db on your Mac. Reports are exported to your chosen folder.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Do I need an account?</summary>
+            <div class="faq-answer">
+              <p>No account is required for local analytics. Supabase sync is optional.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>What permissions are required?</summary>
+            <div class="faq-answer">
+              <p>Full Disk Access is required to read chat.db. Contacts access is optional.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>How do updates work?</summary>
+            <div class="faq-answer">
+              <p>Updates use Sparkle and are downloaded directly from the appcast feed.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I remove the app cleanly?</summary>
+            <div class="faq-answer">
+              <p>Yes. Delete the app and exported reports to remove local artifacts.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Does the demo use my data?</summary>
+            <div class="faq-answer">
+              <p>The live demo uses a synthetic dataset for illustration only.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+    <footer class="footer">
+      <div>
+        <div class="logo">iMessages Stats</div>
+        <p>Designed for macOS. Built for clarity.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#features">Features</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#download">Download</a>
+      </div>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
