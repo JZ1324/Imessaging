@@ -1,0 +1,12 @@
+# iMessage data
+/data/
+/out/
+*.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+.swiftpm/

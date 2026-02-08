@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleName</key>
+  <string>ImessageStatsMacApp</string>
+  <key>CFBundleDisplayName</key>
+  <string>iMessages Stats</string>
+  <key>CFBundleIdentifier</key>
+  <string>com.imessages.stats</string>
+  <key>CFBundleVersion</key>
+  <string>49</string>
+  <key>CFBundleShortVersionString</key>
+  <string>1.0.48</string>
+  <key>CFBundlePackageType</key>
+  <string>APPL</string>
+  <key>CFBundleExecutable</key>
+  <string>ImessageStatsMacApp</string>
+  <key>CFBundleIconFile</key>
+  <string>AppIcon.icns</string>
+  <key>CFBundleIconName</key>
+  <string>AppIcon</string>
+  <key>LSMinimumSystemVersion</key>
+  <string>13.0</string>
+  <key>NSHighResolutionCapable</key>
+  <true/>
+  <key>NSContactsUsageDescription</key>
+  <string>We use your contacts to show names and photos instead of phone numbers in stats.</string>
+  <key>SUFeedURL</key>
+  <string>https://jz1324.github.io/Imessaging/appcast.xml</string>
+  <key>SUPublicEDKey</key>
+  <string>TU8OYlQiOjkEnk2rPiNe5P4t9SnvkWUeH/82TpuDLOo=</string>
+  <key>SUEnableAutomaticChecks</key>
+  <true/>
+  <key>SUAutomaticallyUpdate</key>
+  <false/>
+  <key>CFBundleURLTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleURLName</key>
+      <string>com.imessages.stats.auth</string>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>imessagestats</string>
+      </array>
+    </dict>
+  </array>
+</dict>
+</plist>
